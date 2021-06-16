@@ -1,0 +1,4 @@
+# mesh name: sci_photon
+# primitive scorer name: sci_pop
+# iX, iY, iZ, total(value) , total(val^2), entry
+0,0,0,409418,3838220826,44

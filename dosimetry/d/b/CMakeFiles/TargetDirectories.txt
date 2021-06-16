@@ -1,0 +1,7 @@
+/media/mostafa/PROG/Project/share/Dosimetry/pulito2/d/b/CMakeFiles/install/strip.dir
+/media/mostafa/PROG/Project/share/Dosimetry/pulito2/d/b/CMakeFiles/install/local.dir
+/media/mostafa/PROG/Project/share/Dosimetry/pulito2/d/b/CMakeFiles/edit_cache.dir
+/media/mostafa/PROG/Project/share/Dosimetry/pulito2/d/b/CMakeFiles/install.dir
+/media/mostafa/PROG/Project/share/Dosimetry/pulito2/d/b/CMakeFiles/list_install_components.dir
+/media/mostafa/PROG/Project/share/Dosimetry/pulito2/d/b/CMakeFiles/rebuild_cache.dir
+/media/mostafa/PROG/Project/share/Dosimetry/pulito2/d/b/CMakeFiles/cubedoz.dir

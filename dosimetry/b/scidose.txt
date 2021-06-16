@@ -1,0 +1,4 @@
+# mesh name: sci_dose
+# primitive scorer name: sci_dose
+# iX, iY, iZ, total(value) [Gy], total(val^2), entry
+0,0,0,3.230107256829668e-10,2.459820124537812e-20,5

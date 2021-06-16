@@ -1,0 +1,22 @@
+void readroot1()
+{
+TFile * input=new TFile("dosimetry.root","read");
+TTree * tree=(TTree*) input->Get("dosimetry");
+double x,y;
+tree->SetBranchAddress("Count1",&x);
+tree->SetBranchAddress("Ekin_eV1",&y);
+int entries=tree->GetEntries();
+cout<<entries<<endl;
+
+TH2D *h_real = new TH2D("", "", 50, 0, 300, 50, 0, 600);
+        for (Int_t i = 1; i <= tree->GetEntries(); i++) {
+        tree->GetEntry(i);
+        if (x!=0)
+      {  cout<<x<<"  "<<y<<endl;
+            h_real->Fill(x, y);
+          }  }
+        TCanvas *c_real = new TCanvas("count1", "energy1");
+        h_real->Draw("same");
+        h_real->SetMarkerStyle(2);;
+        h_real->SetFillColor(11);
+}

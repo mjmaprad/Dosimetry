@@ -1,0 +1,4 @@
+# mesh name: sci_edep
+# primitive scorer name: sci_edep
+# iX, iY, iZ, total(value) [MeV], total(val^2), entry
+0,0,0,41.50287936913922,39.51810659988961,44

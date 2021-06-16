@@ -1,0 +1,60 @@
+/control/verbose 0
+/run/verbose 0
+/control/cout/ignoreThreadsExcept 0
+
+#
+/run/initialize
+/gps/source/intensity 1
+/gps/source/add 1
+/gps/particle e-
+#/gps/pos/type Plane
+#/gps/pos/shape Circle
+/gps/position 0 14.5 0 mm
+/gps/direction 0 -1 0 
+
+#/gps/hist/inter Lin
+/tracking/verbose 0
+/control/cout/ignoreThreadsExcept 0
+
+
+/score/create/boxMesh sci_photon
+/score/mesh/boxSize 5 4.5 2.5 mm
+/score/mesh/translate/xyz 0 0 0 cm
+/score/mesh/nBin 1 1 1
+/score/quantity/population sci_pop  
+/score/filter/particle ffilt opticalphoton
+/score/close
+/score/drawProjection  sci_photon sci_pop 
+/score/colorMap/setMinMax ! 0. 800.
+#
+/score/create/boxMesh sci_edep
+/score/mesh/boxSize 5 4.5 2.5 mm
+/score/mesh/translate/xyz 0 0 0 cm
+/score/mesh/nBin 1 1 1
+/score/quantity/energyDeposit sci_edep  
+/score/close
+/score/drawProjection  sci_edep sci_edep
+
+/score/colorMap/setMinMax ! 0. 800.
+#
+/score/create/boxMesh sci_dose
+/score/mesh/boxSize 5 4.5 2.5 mm
+/score/mesh/translate/xyz 0 0 0 cm
+/score/mesh/nBin 1 1 1
+/score/quantity/doseDeposit sci_dose Gy
+/score/close
+/score/drawProjection  sci_edep sci_dose
+
+/score/colorMap/setMinMax ! 0. 800.
+#################################33
+#
+
+
+
+#/run/printProgress 100
+/run/beamOn 100
+/score/dumpAllQuantitiesToFile sci_edep  sci_edep.txt
+/score/dumpAllQuantitiesToFile sci_photon  scicount.txt
+/score/dumpAllQuantitiesToFile sci_dose  scidose.txt
+
+#

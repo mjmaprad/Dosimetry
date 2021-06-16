@@ -1,0 +1,137 @@
+void readroot()
+{
+
+//
+double n=0;
+double e=0;
+double p=0;
+double gamma=0;
+double alpha=0;
+double tot_e=0;
+double tot_n=0;
+double tot_p=0;
+double tot_gamma=0;
+double tot_alpha=0;
+//
+
+double spec_n=0;
+double spec_e=0;
+double spec_p=0;
+double spec_gamma=0;
+double spec_alpha=0;
+//
+
+double ave_en_n=0;
+double ave_en_e=0;
+double ave_en_p=0;
+double ave_en_gamma=0;
+double ave_en_alpha=0;
+///
+double c1=0;
+double c2=0;
+double e1=0;
+double e2=0;
+double tot_c1=0;
+double tot_c2=0;
+double tot_e1=0;
+double tot_e2=0;
+double photon=0;
+double tot_photon=0;
+double edep=0;
+double tot_edep=0;
+double dose=0;
+double tot_dose=0;
+double dose_r=0;
+double tot_dose_r=0;
+double coin_c=0;
+double tot_coin_c=0;
+double coin_e=0;
+double tot_coin_e=0;
+TH2D *h_real = new TH2D("", "", 50, 0, 1000, 50, 0, 3500);
+//
+TFile * input=new TFile("dosimetry.root","read");
+TTree * tree=(TTree*) input->Get("dosimetry");
+//
+tree->SetBranchAddress("electron_count",&e);
+tree->SetBranchAddress("neutron_count",&n);
+tree->SetBranchAddress("proton_count",&p);
+tree->SetBranchAddress("gamma_count",&gamma);
+tree->SetBranchAddress("alpha_count",&alpha);
+//
+tree->SetBranchAddress("Incident_electron_spectrum_keV",&spec_e);
+tree->SetBranchAddress("Incident_electron_spectrum_keV",&spec_n);
+tree->SetBranchAddress("Incident_electron_spectrum_keV",&spec_p);
+tree->SetBranchAddress("Incident_electron_spectrum_keV",&spec_gamma);
+tree->SetBranchAddress("Incident_electron_spectrum_keV",&spec_alpha);
+//
+tree->SetBranchAddress("TotalEnergyDeposit_keV",&edep);
+tree->SetBranchAddress("Dose_Gy",&dose);
+tree->SetBranchAddress("Dose_Equivalent_Sv",&dose_r);
+tree->SetBranchAddress("Count1",&c1);
+tree->SetBranchAddress("Ekin_eV1",&e1);
+tree->SetBranchAddress("Count2",&c2);
+tree->SetBranchAddress("Ekin_eV2",&e2);
+tree->SetBranchAddress("Photons_count",&photon);
+tree->SetBranchAddress("coincidence_photon",&coin_c);
+tree->SetBranchAddress("coincidence_energy_keV",&coin_e);
+int entries=tree->GetEntries();
+cout<<entries<<endl;
+
+////////
+double c_e=0;
+double c_g=0;
+double c_n=0;
+double c_p=0;
+double c_alpha=0;
+
+        for (Int_t i = 1; i <= tree->GetEntries(); i++) {
+        tree->GetEntry(i);
+
+tot_photon+=photon;
+tot_e+=e;
+tot_n+=n;
+tot_p+=p;
+tot_gamma+=gamma;
+tot_alpha+=alpha;
+tot_c1+=c1;
+tot_c2+=c2;
+tot_e1+=e1;
+tot_e2+=e2;
+tot_edep+=edep;
+tot_dose+=dose;
+tot_dose_r+=dose_r;
+tot_coin_c+=coin_c;
+tot_coin_e+=coin_e;
+////////////////////////////
+
+if (spec_n!=0) {ave_en_n+=spec_n; c_n++;}
+if (spec_e!=0) {ave_en_e+=spec_e; c_e++;}
+if (spec_p!=0) {ave_en_p+=spec_p; c_p++;}
+if (spec_gamma!=0) {ave_en_gamma+=spec_gamma; c_g++;}
+if (spec_alpha!=0) {ave_en_alpha+=spec_alpha; c_alpha++;}
+
+       // if (c1!=0)
+      {  cout<<c1<<"  "<<e1<<endl;
+            h_real->Fill(c1, e1);
+          }  }
+        TCanvas *c_real = new TCanvas("c1", "e1");
+        h_real->Draw("same");
+        h_real->SetMarkerStyle(2);;
+        h_real->SetFillColor(11);
+        ////////////////////////////////////////////////////////////////
+       // cout<<"-----------------------------numbers-----------------------------------------"<<endl;
+      //  cout<<"Total number of particles and energies:"<<endl;
+        //        cout<<tot_e<<" "<<ave_en_e/c_e<<" keV"<<endl;
+         //       cout<<tot_gamma<<" "<<ave_en_gamma/c_g<<" keV"<<endl;
+         //       cout<<tot_p<<" "<<ave_en_p/c_p<<" keV"<<endl;
+         //       cout<<tot_n<<" "<<ave_en_n/c_n<<" keV"<<endl;
+          //      cout<<tot_alpha<<" cpm "<<ave_en_alpha/c_alpha<<" keV"<<endl;
+        cout<<"------------------------tota count and energy in sipms----------------------"<<endl;
+                cout<<tot_c1*60<<" cpm "<<tot_e1<<" keV"<<endl;
+                cout<<tot_c2*60<<" cpm "<<tot_e2<<" keV"<<endl;
+        cout<<"----------------------------------Dose------------------------------------"<<endl;
+        cout<<"Total energy deposit:"<<tot_edep<<" keV"<<endl;
+        cout<<"Total dose:"<<tot_dose<<" Gy"<<endl;
+        cout<<"Total dose rate:"<<tot_dose_r*3600<<" Sv/h"<<endl;
+        
+}
